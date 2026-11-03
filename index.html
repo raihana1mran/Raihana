@@ -1103,6 +1103,7 @@ if(sec){
 const form=document.getElementById('contactForm');if(!form)return;
 const status=document.getElementById('formStatus'),btn=form.querySelector('[type=submit]'),label=btn.querySelector('span');
 const TO='ummuraihanaumarsithik@gmail.com';
+const W3=''; /* paste your Web3Forms access key between the quotes */
 const say=(msg,ok)=>{status.textContent=msg;status.style.color=ok?'#6ee7b7':'#fca5a5'};
 form.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -1116,7 +1117,7 @@ form.addEventListener('submit',async e=>{
   };
   btn.disabled=true;const old=label.textContent;label.textContent='Sending…';say('',true);
   try{
-    const r=await fetch('https://formsubmit.co/ajax/'+TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+    const r=await fetch(W3?'https://api.web3forms.com/submit':'https://formsubmit.co/ajax/'+TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(W3?{access_key:W3,subject:data._subject,from_name:'Portfolio contact form',email:data.email,phone:data.phone,interests:data.interests,budget:data.budget,message:data.message}:data)});
     const j=await r.json().catch(()=>({}));
     if(!r.ok||j.success==='false'||j.success===false)throw new Error(j.message||'failed');
     say('Thank you! Your request has been sent. I will get back to you soon.',true);
