@@ -1239,4 +1239,11 @@ function lock(){G.forEach(([id,sel])=>{
 addEventListener('load',lock);addEventListener('resize',lock);setTimeout(lock,600);
 })();
 </script>
+<script>
+(()=>{const main=document.getElementById('bMain'),th=[...document.querySelectorAll('.bthumb')];if(!main)return;
+const src=th.map(t=>t.querySelector('img').src);let c=0,t0;
+function go(i){c=i;main.src=src[i];th.forEach((b,k)=>{b.style.opacity=k===i?1:.55;b.style.borderColor=k===i?'#cadbe8':'transparent'})}
+function run(){clearInterval(t0);t0=setInterval(()=>go((c+1)%src.length),5000)}
+th.forEach((b,i)=>b.addEventListener('click',()=>{go(i);run()}));run();})();
+</script>
 </body></html>
