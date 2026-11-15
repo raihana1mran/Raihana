@@ -1269,4 +1269,19 @@ function go(i){c=i;main.src=src[i];th.forEach((b,k)=>{b.style.opacity=k===i?1:.5
 function run(){clearInterval(t0);t0=setInterval(()=>go((c+1)%src.length),5000)}
 th.forEach((b,i)=>b.addEventListener('click',()=>{go(i);run()}));run();})();
 </script>
+<script>
+(()=>{
+const MAX=()=>innerWidth<=640?550:760;
+function lock(){
+  const m=document.getElementById('bMain');if(!m)return;
+  const wrap=m.parentElement,w=m.clientWidth||wrap.clientWidth;if(!w)return;
+  let max=0;
+  document.querySelectorAll('#projects .bthumb img').forEach(i=>{
+    if(i.naturalWidth)max=Math.max(max,w*i.naturalHeight/i.naturalWidth);
+  });
+  if(max){wrap.style.minHeight=Math.min(max,MAX())+'px';wrap.style.background='#0c0d11'}
+}
+addEventListener('load',lock);addEventListener('resize',lock);setTimeout(lock,600);
+})();
+</script>
 </body></html>
